@@ -1,0 +1,105 @@
+[gd_scene load_steps=16 format=3 uid="uid://dwf7fhx8uqft8"]
+
+[ext_resource type="Script" path="res://character_controller.gd" id="1_6sahc"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7c0cy"]
+size = Vector3(25, 1, 25)
+
+[sub_resource type="BoxMesh" id="BoxMesh_oguu3"]
+size = Vector3(25, 1, 25)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5hrq5"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_8cg8l"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_eoupl"]
+
+[sub_resource type="Sky" id="Sky_gdkyc"]
+sky_material = SubResource("ProceduralSkyMaterial_eoupl")
+
+[sub_resource type="Environment" id="Environment_c8ql1"]
+background_mode = 2
+sky = SubResource("Sky_gdkyc")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_06an6"]
+albedo_color = Color(1, 0.172118, 0.92081, 1)
+
+[sub_resource type="TextMesh" id="TextMesh_oucrs"]
+material = SubResource("StandardMaterial3D_06an6")
+text = "SILLY PIRATE GAME"
+pixel_size = 0.25
+depth = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0c32c"]
+albedo_color = Color(0.0574824, 0.703234, 0.292681, 1)
+
+[sub_resource type="TextMesh" id="TextMesh_5v0f7"]
+material = SubResource("StandardMaterial3D_0c32c")
+text = "ts so peak bro
+"
+pixel_size = 0.25
+depth = 1.0
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4bex8"]
+radius = 1.6
+height = 5.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_18eqm"]
+albedo_color = Color(0.270588, 0.313726, 1, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_28n2y"]
+radius = 1.6
+height = 5.0
+
+[node name="Node3D" type="Node3D"]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_7c0cy")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D/CollisionShape3D"]
+mesh = SubResource("BoxMesh_oguu3")
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.72011, 0)
+script = ExtResource("1_6sahc")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
+shape = SubResource("CapsuleShape3D_5hrq5")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D/CollisionShape3D"]
+mesh = SubResource("CapsuleMesh_8cg8l")
+
+[node name="CameraPivot" type="Node3D" parent="CharacterBody3D"]
+
+[node name="Camera3D" type="Camera3D" parent="CharacterBody3D/CameraPivot"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_c8ql1")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.505567, 0.862787, 0, -0.862787, 0.505567, 0, 0, 0)
+
+[node name="StaticBody3D2" type="StaticBody3D" parent="."]
+transform = Transform3D(0.999996, -0.00265137, 0.000314328, 0.00261992, 0.951759, -0.306836, 0.00051436, 0.306836, 0.951762, 0.37181, 11.5632, -24.9463)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D2"]
+transform = Transform3D(1, 4.80213e-10, 0, 7.27596e-11, 1, -2.98023e-08, 1.16415e-10, 5.96046e-08, 1, -0.00380006, -0.142626, 0.0428696)
+mesh = SubResource("TextMesh_oucrs")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="StaticBody3D2"]
+transform = Transform3D(1, 2.18279e-10, 0, 5.82077e-11, 1, -2.98023e-08, 5.82077e-11, 2.98023e-08, 1, -1.18112e-09, -4.34442, -6.9869e-08)
+mesh = SubResource("TextMesh_5v0f7")
+skeleton = NodePath("../..")
+
+[node name="RigidBody3D" type="RigidBody3D" parent="."]
+transform = Transform3D(0.969437, 0.245341, 0, -0.201747, 0.79718, 0.569036, 0.139608, -0.551644, 0.822313, -2.87398, 19.7981, -12.4332)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+shape = SubResource("CapsuleShape3D_4bex8")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D/CollisionShape3D"]
+material_override = SubResource("StandardMaterial3D_18eqm")
+mesh = SubResource("CapsuleMesh_28n2y")
